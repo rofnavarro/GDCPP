@@ -16,6 +16,5 @@ int	main(void)
 		win.display();
 	}
 
-
 	return	(0);
 }
