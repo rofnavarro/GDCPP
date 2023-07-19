@@ -1,6 +1,6 @@
 #include	"../include/engine.hpp"
 
-CBBox::CBBox()
+CInput::CInput()
 {
-	
+
 }

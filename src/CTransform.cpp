@@ -1,8 +1,9 @@
 #include	"../include/engine.hpp"
 
-CTransform::CTransform(const sf::Vector2i & p, const sf::Vector2f & v)
+CTransform::CTransform(const sf::Vector2f & p, const sf::Vector2f & s, float a)
 	:pos(p)
-	,velocity(v)
+	,speed(s)
+	,angle(a)
 {
 
 }

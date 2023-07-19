@@ -3,11 +3,13 @@
 
 # include	<SFML/Window.hpp>
 # include	<SFML/Graphics.hpp>
-# include	<iostream>
+# include	<string>
 # include	<memory>
 
-# include	"CBBox.hpp"
-# include	"CName.hpp"
+# include	"CCollision.hpp"
+# include	"CInput.hpp"
+# include	"CLifespan.hpp"
+# include	"CScore.hpp"
 # include	"CShape.hpp"
 # include	"CTransform.hpp"
 

@@ -9,8 +9,7 @@ RM						=					rm -rf
 
 INCLUDE_DIR				=					./include
 INCLUDE_FILES			=					engine.hpp \
-											CBBox.hpp \
-											CName.hpp \
+											CCollision.hpp \
 											CShape.hpp \
 											CTransform.hpp \
 											Entity.hpp \
@@ -19,8 +18,7 @@ INCLUDE					=					$(addprefix $(INCLUDE_DIR)/, $(INCLUDE_FILES))
 
 SRC_DIR					=					./src
 SRC_FILES				=					../main.cpp \
-														CBBox.cpp \
-														CName.cpp \
+														CCollision.cpp \
 														CShape.cpp \
 														CTransform.cpp \
 														Entity.cpp \

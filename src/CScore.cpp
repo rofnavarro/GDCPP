@@ -1,6 +1,7 @@
 #include	"../include/engine.hpp"
 
-CName::CName()
+CScore::CScore(int s)
+	:score(s)
 {
-	
+
 }
