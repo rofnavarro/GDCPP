@@ -8,11 +8,24 @@ LIB						=					-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 RM						=					rm -rf
 
 INCLUDE_DIR				=					./include
-INCLUDE_FILES			=					engine.hpp
+INCLUDE_FILES			=					engine.hpp \
+											CBBox.hpp \
+											CName.hpp \
+											CShape.hpp \
+											CTransform.hpp \
+											Entity.hpp \
+											EntityManager.hpp
 INCLUDE					=					$(addprefix $(INCLUDE_DIR)/, $(INCLUDE_FILES))
 
-SRC_DIR					=					./
-SRC_FILES				=					main.cpp
+SRC_DIR					=					./src
+SRC_FILES				=					../main.cpp \
+														CBBox.cpp \
+														CName.cpp \
+														CShape.cpp \
+														CTransform.cpp \
+														Entity.cpp \
+														EntityManager.cpp
+
 SRC						=					$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
 OBJ_DIR					=					./obj
@@ -40,11 +53,11 @@ runv:					all
 						valgrind -q --leak-check=full --show-leak-kinds=all -s --track-origins=yes ./$(NAME)
 
 clean:
-						@$(RM) $(OBJ_DIR)
+						@$(RM) $(OBJ_DIR) main.o
 						@echo "$(GREEN)Object files removed $(RESET)"
 
 fclean:					clean
-						@$(RM) $(NAME)
+						@$(RM) $(NAME) main.o
 						@echo "$(GREEN)Executable removed $(RESET)"
 
 re:						fclean all
