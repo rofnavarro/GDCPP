@@ -7,9 +7,9 @@ class	Entity
 private:
 	friend class	EntityManager;
 	
-	size_t			m_id = 0;
-	std::string		m_tag = "default";
-	bool			m_alive = true;
+	size_t			m_id {0};
+	std::string		m_tag {"default"};
+	bool			m_alive {true};
 
 	Entity(size_t id, const std::string& tag);
 
@@ -23,7 +23,7 @@ public:
 
 	bool					isActive() const;
 	const std::string&		getTag() const;
-	const size_t			getId() const;
+	size_t					getId() const;
 	void					destroy();
 
 };

@@ -4,17 +4,49 @@
 
 struct PlayerConfig
 {
-	int	SR, CR, FR, FG, FB, OR, OG, OB, OT, V; float S;
+	int		SR {};
+	int		CR {};
+	int		FR {};
+	int		FG {};
+	int		FB {};
+	int		OR {};
+	int		OG {};
+	int		OB {};
+	int		OT {};
+	int		V {};
+	float	S {};
 };
 
 struct EnemyConfig
 {
-	int	SR, CR, OR, OG, OB, OT, VMIN, VMAX, L, SI; float SMIN, SMAX;
+	int		SR {};
+	int		CR {};
+	int		OR {};
+	int		OG {};
+	int		OB {};
+	int		OT {};
+	int		VMIN {};
+	int		VMAX {};
+	int		L {};
+	int		SI {};
+	float	SMIN {};
+	float	SMAX {};
 };
 
 struct BulletConfig
 {
-	int	SR, CR, FR, FG, FB, OR, OG, OB, OT, V, L; float S;
+	int		SR {};
+	int		CR {};
+	int		FR {};
+	int		FG {};
+	int		FB {};
+	int		OR {};
+	int		OG {};
+	int		OB {};
+	int		OT {};
+	int		V {};
+	int		L {};
+	float	S {};
 };
 
 class Game
@@ -27,11 +59,11 @@ private:
 	PlayerConfig				m_playerConfig;
 	EnemyConfig					m_enemyConfig;
 	BulletConfig				m_bulletConfig;
-	int							m_score = 0;
-	int							m_currentFrame = 0;
-	int							m_lastEnemySpawnTime = 0;
-	bool						m_paused = false;
-	bool						m_running = true;
+	int							m_score {0};
+	int							m_currentFrame {0};
+	int							m_lastEnemySpawnTime {0};
+	bool						m_paused {false};
+	bool						m_running {true};
 
 	std::shared_ptr<Entity>		m_player;
 
@@ -42,7 +74,7 @@ private:
 	void	sUserInput();
 	void	sLifespan();
 	void	sRender();
-	void	sEnemySpawner();
+	void	sSpawner();
 	void	sCollision();
 
 	void	spawnPlayer();

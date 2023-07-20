@@ -2,8 +2,10 @@
 
 int	main(void)
 {
-	Game	G("config.txt");
+	Game	*G = new Game("config.txt");
 	
-	G.run();
+	G->run();
+
+	delete G;
 	return	(0);
 }

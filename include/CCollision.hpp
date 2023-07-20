@@ -5,7 +5,7 @@
 class	CCollision
 {
 public:
-	float	raidus = 0;
+	float	raidus {0};
 
 	CCollision(float r);
 

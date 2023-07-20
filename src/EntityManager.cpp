@@ -1,13 +1,14 @@
 #include	"../include/engine.hpp"
 
 EntityManager::EntityManager()
+	:m_totalEntities(0)
 {
 
 }
 
 void	EntityManager::update()
 {
-	for (auto e : m_toAdd)
+	for (auto& e : m_toAdd)
 	{
 		m_entities.push_back(e);
 		m_entityMap[e->getTag()].push_back(e);
@@ -30,7 +31,7 @@ std::shared_ptr<Entity>	EntityManager::addEntity(const std::string& tag)
 void	EntityManager::removeDeadEntities(EntityVec& vec)
 {
 	vec.erase(std::remove_if(vec.begin(), vec.end(), \
-							[] (const std::shared_ptr<Entity> &entity) { return !entity->isActive();}),
+							[] (auto& entity) { return !entity->isActive();}),
 							vec.end());
 }
 

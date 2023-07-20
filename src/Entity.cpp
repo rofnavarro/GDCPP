@@ -14,15 +14,15 @@ bool	Entity::isActive() const
 
 const std::string&	Entity::getTag() const
 {
-	return	((const std::string) m_tag);
+	return	(m_tag);
 }
 
-const size_t	Entity::getId() const
+size_t	Entity::getId() const
 {
-	return	((const size_t) m_id);
+	return	(m_id);
 }
 
 void	Entity::destroy()
 {
-
+	m_alive = false;
 }

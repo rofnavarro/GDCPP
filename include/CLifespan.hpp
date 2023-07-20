@@ -5,8 +5,8 @@
 class	CLifespan
 {
 public:
-	int	remaining = 0;
-	int	total = 0;
+	int	remaining {0};
+	int	total {0};
 
 	CLifespan(int total);
 

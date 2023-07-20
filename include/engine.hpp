@@ -8,6 +8,8 @@
 # include	<iostream>
 # include	<fstream>
 # include	<algorithm>
+# include	<vector>
+# include	<cmath>
 
 # include	"CCollision.hpp"
 # include	"CInput.hpp"
