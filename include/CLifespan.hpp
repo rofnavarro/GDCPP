@@ -9,4 +9,5 @@ public:
 	int	total = 0;
 
 	CLifespan(int total);
+
 };

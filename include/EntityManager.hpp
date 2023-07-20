@@ -11,12 +11,14 @@ private:
 	EntityVec	m_entities;
 	EntityVec	m_toAdd;
 	EntityMap	m_entityMap;
-	size_t		m_totalEntities;
+	size_t		m_totalEntities = 0;
 	
 public:
 								EntityManager();
-	std::shared_ptr<Entity>		addEntity(const std::string& m_tag);
 	void						update();
-	EntityVec&					getEntities();
-	EntityVec&					getEntities(const std::string& m_tag);
+	std::shared_ptr<Entity>		addEntity(const std::string& m_tag);
+	void						removeDeadEntities(EntityVec& vec);
+	const EntityVec&			getEntities();
+	const EntityVec&			getEntities(const std::string& m_tag);
+
 };

@@ -54,5 +54,8 @@ private:
 	void	spawnSpecialWeapon(std::shared_ptr<Entity> entity);
 
 public:
+	Game(const std::string& config);
+
+	void	run();
 
 };

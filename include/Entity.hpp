@@ -25,4 +25,5 @@ public:
 	const std::string&		getTag() const;
 	const size_t			getId() const;
 	void					destroy();
+
 };

@@ -8,4 +8,5 @@ public:
 	float	raidus = 0;
 
 	CCollision(float r);
+
 };

@@ -12,4 +12,5 @@ public:
 	bool	shoot = false;
 	
 	CInput();
+
 };

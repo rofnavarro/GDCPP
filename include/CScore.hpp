@@ -8,4 +8,5 @@ public:
 	int	score = 0;
 
 	CScore(int s);
+
 };

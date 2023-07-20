@@ -1,7 +1,7 @@
 NAME					=					gd
 
 CPP						=					g++
-CPP_FLAGS				=					-std=c++17 -m64 -g -Wall -Werror -Wextra
+CPP_FLAGS				=					-std=c++17 -m64 -g -Wall
 
 LIB						=					-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
@@ -10,19 +10,27 @@ RM						=					rm -rf
 INCLUDE_DIR				=					./include
 INCLUDE_FILES			=					engine.hpp \
 											CCollision.hpp \
+											CInput.hpp \
+											CLifespan.hpp \
+											CScore.hpp \
 											CShape.hpp \
 											CTransform.hpp \
 											Entity.hpp \
-											EntityManager.hpp
+											EntityManager.hpp \
+											Game.hpp
 INCLUDE					=					$(addprefix $(INCLUDE_DIR)/, $(INCLUDE_FILES))
 
 SRC_DIR					=					./src
 SRC_FILES				=					../main.cpp \
 														CCollision.cpp \
+														CInput.cpp \
+														CLifespan.cpp \
+														CScore.cpp \
 														CShape.cpp \
 														CTransform.cpp \
 														Entity.cpp \
-														EntityManager.cpp
+														EntityManager.cpp \
+														Game.cpp
 
 SRC						=					$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

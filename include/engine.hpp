@@ -5,6 +5,9 @@
 # include	<SFML/Graphics.hpp>
 # include	<string>
 # include	<memory>
+# include	<iostream>
+# include	<fstream>
+# include	<algorithm>
 
 # include	"CCollision.hpp"
 # include	"CInput.hpp"
@@ -15,5 +18,7 @@
 
 # include	"Entity.hpp"
 # include	"EntityManager.hpp"
+
+# include	"Game.hpp"
 
 #endif

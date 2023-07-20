@@ -9,4 +9,5 @@ public:
 
 	CShape(float radius, int points, const sf::Color& fill, \
 			const sf::Color& outline, float thickness);
+
 };
