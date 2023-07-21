@@ -2,7 +2,7 @@
 
 int	main(void)
 {
-	Game	*G = new Game("config.txt");
+	Game	*G = new Game("src/config.txt");
 	
 	G->run();
 

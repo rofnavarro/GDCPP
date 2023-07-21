@@ -82,7 +82,7 @@ private:
 	void	spawnEnemy();
 	void	spawnSmallEnemys(std::shared_ptr<Entity> entity);
 
-	void	spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mousePos);
+	void	spawnBullets(std::shared_ptr<Entity>& entity, const sf::Vector2f& mousePos);
 	void	spawnSpecialWeapon(std::shared_ptr<Entity> entity);
 
 public:

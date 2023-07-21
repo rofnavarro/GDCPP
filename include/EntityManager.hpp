@@ -11,7 +11,7 @@ private:
 	EntityVec	m_entities;
 	EntityVec	m_toAdd;
 	EntityMap	m_entityMap;
-	size_t		m_totalEntities = {0};
+	size_t		m_totalEntities {0};
 	
 	void		removeDeadEntities(EntityVec& vec);
 
