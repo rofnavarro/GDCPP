@@ -514,6 +514,29 @@ void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mous
 	diff.y = diff.y / l;
 	
 	sf::Vector2f	bulletVelocity {m_bulletConfig.S * diff.x, m_bulletConfig.S * diff.y};
+	if (mousePos.x <= entity->cTransform->pos.x)
+	{
+		if (mousePos.y <= entity->cTransform->pos.y)
+		{
+			if (bulletVelocity.x > 0)
+		}
+		else
+		{
+
+		}
+	}
+	else if (mousePos.x > entity->cTransform->pos.x)
+	{
+		if (mousePos.y > entity->cTransform->pos.y)
+		{
+
+		}
+		else
+		{
+
+		}
+	}
+
 
 	bullet->cTransform = std::make_shared<CTransform>((entity->cTransform->pos), bulletVelocity, 0);
 	bullet->cLifespan = std::make_shared<CLifespan>(m_bulletConfig.L);
