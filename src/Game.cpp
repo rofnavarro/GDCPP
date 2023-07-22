@@ -283,7 +283,7 @@ void	Game::sSpawner()
 		spawnEnemy();
 	if (m_player->cInput->leftMouse == true)
 	{
-		sf::Vector2f	mouseP {static_cast<double>((sf::Mouse::getPosition(m_window).x)), static_cast<double>((sf::Mouse::getPosition(m_window).x))};
+		sf::Vector2f	mouseP {((sf::Mouse::getPosition(m_window).x)), ((sf::Mouse::getPosition(m_window).x))};
 		
 		spawnBullets(m_player, mouseP);
 		m_player->cInput->leftMouse = false;
@@ -493,7 +493,7 @@ void	Game::spawnSmallEnemys(std::shared_ptr<Entity> e)
 		rad = (alpha * pi / 180.0);
 		sf::Vector2f	velo {static_cast<float>(std::cos(rad) * position.x + std::sin(rad) * position.y), \
 							  static_cast<float>(std::cos(rad) * position.x - std::sin(rad) * position.y)};
-		float			l {static_cast<float>((double)(std::sqrt((velo.x * velo.x) + (velo.y * velo.y))))};
+		float			l {static_cast<float>((std::sqrt((velo.x * velo.x) + (velo.y * velo.y))))};
 		
 		velo.x = velo.x / l;
 		velo.y = velo.y / l;
@@ -504,20 +504,24 @@ void	Game::spawnSmallEnemys(std::shared_ptr<Entity> e)
 	}
 }
 
-void	Game::spawnBullets(std::shared_ptr<Entity>& entity, const sf::Vector2f& mousePos)
+void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mousePos)
 {
+	auto 			bullet = m_entities.addEntity("bullet");
+	sf::Vector2f	diff {mousePos.x - entity->cTransform->pos.x, mousePos.y - entity->cTransform->pos.y};
+	
+	float			l {std::sqrt((diff.x * diff.x) + (diff.y * diff.y))};
+	diff.x = diff.x / l;
+	diff.y = diff.y / l;
+	
+	sf::Vector2f	bulletVelocity {m_bulletConfig.S * diff.x, m_bulletConfig.S * diff.y};
 
-	// auto 			bullet = m_entities.addEntity("bullet");
-	// sf::Vector2f	diff {mousePos.x - entity->cTransform->pos.x, mousePos.y - entity->cTransform->pos.y};
-	// sf::Vector2f	bulletVelocity (m_bulletConfig.S * diff.x, m_bulletConfig.S * diff.y);
-
-	// bullet->cTransform = std::make_shared<CTransform>((entity->cTransform->pos), bulletVelocity, 0);
-	// bullet->cShape = std::make_shared<CShape>(m_bulletConfig.SR, m_bulletConfig.V, \
-	// 										  sf::Color(m_bulletConfig.FR, m_bulletConfig.FG, m_bulletConfig.FB), \
-	// 										  sf::Color(m_bulletConfig.OR, m_bulletConfig.OG, m_bulletConfig.OB), \
-	// 										  m_bulletConfig.OT);
-	// bullet->cLifespan = std::make_shared<CLifespan>(m_bulletConfig.L);
-	// bullet->cCollision = std::make_shared<CCollision>(m_bulletConfig.CR);
+	bullet->cTransform = std::make_shared<CTransform>((entity->cTransform->pos), bulletVelocity, 0);
+	bullet->cLifespan = std::make_shared<CLifespan>(m_bulletConfig.L);
+	bullet->cCollision = std::make_shared<CCollision>(m_bulletConfig.CR);
+	bullet->cShape = std::make_shared<CShape>(m_bulletConfig.SR, m_bulletConfig.V, \
+											  sf::Color(m_bulletConfig.FR, m_bulletConfig.FG, m_bulletConfig.FB), \
+											  sf::Color(m_bulletConfig.OR, m_bulletConfig.OG, m_bulletConfig.OB), \
+											  m_bulletConfig.OT);
 }
 
 void	Game::spawnSpecialWeapon(std::shared_ptr<Entity> entity)
