@@ -514,27 +514,33 @@ void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mous
 	diff.y = diff.y / l;
 	
 	sf::Vector2f	bulletVelocity {m_bulletConfig.S * diff.x, m_bulletConfig.S * diff.y};
-	if (mousePos.x <= entity->cTransform->pos.x)
+	if (mousePos.x <= entity->cTransform->pos.x && mousePos.y <= entity->cTransform->pos.y)
 	{
-		if (mousePos.y <= entity->cTransform->pos.y)
-		{
-			if (bulletVelocity.x > 0)
-		}
-		else
-		{
-
-		}
+		if (bulletVelocity.x >= 0)
+			bulletVelocity.x *= -1;
+		if (bulletVelocity.y >= 0)
+			bulletVelocity.y *= -1;
 	}
-	else if (mousePos.x > entity->cTransform->pos.x)
+	else if (mousePos.x <= entity->cTransform->pos.x && mousePos.y > entity->cTransform->pos.y)
 	{
-		if (mousePos.y > entity->cTransform->pos.y)
-		{
-
-		}
-		else
-		{
-
-		}
+		if (bulletVelocity.x < 0)
+			bulletVelocity.x *= -1;
+		if (bulletVelocity.y >= 0)
+			bulletVelocity.y *= -1;
+	}
+	else if (mousePos.x > entity->cTransform->pos.x && mousePos.y <= entity->cTransform->pos.y)
+	{
+		if (bulletVelocity.x >= 0)
+			bulletVelocity.x *= -1;
+		if (bulletVelocity.y >= 0)
+			bulletVelocity.y *= -1;
+	}
+	else if (mousePos.x > entity->cTransform->pos.x && mousePos.y > entity->cTransform->pos.y)
+	{
+		if (bulletVelocity.x >= 0)
+			bulletVelocity.x *= -1;
+		if (bulletVelocity.y >= 0)
+			bulletVelocity.y *= -1;
 	}
 
 
