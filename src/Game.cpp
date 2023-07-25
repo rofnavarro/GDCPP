@@ -465,8 +465,8 @@ void	Game::spawnSmallEnemys(std::shared_ptr<Entity> e)
 {
 	size_t			vert {e->cShape->circle.getPointCount()};
 	sf::Vector2f	position {e->cTransform->pos.x, e->cTransform->pos.x};
-	double			p {(double)(std::sqrt((position.x * position.x) + (position.y * position.y)))};
 
+	double			p {(double)(std::sqrt((position.x * position.x) + (position.y * position.y)))};
 	position.x = position.x / p;
 	position.y = position.y / p;
 
@@ -481,7 +481,7 @@ void	Game::spawnSmallEnemys(std::shared_ptr<Entity> e)
 	for (size_t i = 0; i < vert; ++i)
 	{
 		auto			ent = m_entities.addEntity("smallenemy");
-		float			alpha {0};
+		float			alpha {1};
 		const double	pi {3.14159265359};
 		double			rad {0};
 
@@ -514,37 +514,8 @@ void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mous
 	diff.y = diff.y / l;
 	
 	sf::Vector2f	bulletVelocity {m_bulletConfig.S * diff.x, m_bulletConfig.S * diff.y};
-	// if (mousePos.x <= entity->cTransform->pos.x && mousePos.y <= entity->cTransform->pos.y)
-	// {
-	// 	if (bulletVelocity.x >= 0)
-	// 		bulletVelocity.x *= -1;
-	// 	if (bulletVelocity.y >= 0)
-	// 		bulletVelocity.y *= -1;
-	// }
-	// else if (mousePos.x <= entity->cTransform->pos.x && mousePos.y > entity->cTransform->pos.y)
-	// {
-	// 	if (bulletVelocity.x < 0)
-	// 		bulletVelocity.x *= -1;
-	// 	if (bulletVelocity.y >= 0)
-	// 		bulletVelocity.y *= -1;
-	// }
-	// else if (mousePos.x > entity->cTransform->pos.x && mousePos.y <= entity->cTransform->pos.y)
-	// {
-	// 	if (bulletVelocity.x >= 0)
-	// 		bulletVelocity.x *= -1;
-	// 	if (bulletVelocity.y >= 0)
-	// 		bulletVelocity.y *= -1;
-	// }
-	// else if (mousePos.x > entity->cTransform->pos.x && mousePos.y > entity->cTransform->pos.y)
-	// {
-	// 	if (bulletVelocity.x >= 0)
-	// 		bulletVelocity.x *= -1;
-	// 	if (bulletVelocity.y >= 0)
-	// 		bulletVelocity.y *= -1;
-	// }
 
-
-	bullet->cTransform = std::make_shared<CTransform>((entity->cTransform->pos), bulletVelocity, 0);
+	bullet->cTransform = std::make_shared<CTransform>((entity->cTransform->pos), bulletVelocity, entity->cTransform->angle);
 	bullet->cLifespan = std::make_shared<CLifespan>(m_bulletConfig.L);
 	bullet->cCollision = std::make_shared<CCollision>(m_bulletConfig.CR);
 	bullet->cShape = std::make_shared<CShape>(m_bulletConfig.SR, m_bulletConfig.V, \
