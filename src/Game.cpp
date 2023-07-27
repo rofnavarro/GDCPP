@@ -283,7 +283,7 @@ void	Game::sSpawner()
 		spawnEnemy();
 	if (m_player->cInput->leftMouse == true)
 	{
-		sf::Vector2f	mouseP {((sf::Mouse::getPosition(m_window).x)), ((sf::Mouse::getPosition(m_window).x))};
+		sf::Vector2f	mouseP = sf::Vector2f(((sf::Mouse::getPosition(m_window).x)), ((sf::Mouse::getPosition(m_window).x)));
 		
 		spawnBullets(m_player, mouseP);
 		m_player->cInput->leftMouse = false;
@@ -443,8 +443,8 @@ void	Game::spawnEnemy()
 	sf::Vector2f	pos {static_cast<float>(minPosX + (rand() % (maxPosX - minPosX + 1))), \
 						 static_cast<float>(minPosY + (rand() % (maxPosY - minPosY + 1)))};
 	
-	sf::Vector2f	speed {static_cast<int>(- m_enemyConfig.SMIN + (rand() % static_cast<int>(m_enemyConfig.SMAX + m_enemyConfig.SMIN + 1))), \
-						   static_cast<int>(- m_enemyConfig.SMIN + (rand() % static_cast<int>(m_enemyConfig.SMAX + m_enemyConfig.SMIN + 1)))};
+	sf::Vector2f	speed = sf::Vector2f((- m_enemyConfig.SMIN + (rand() % static_cast<int>(m_enemyConfig.SMAX + m_enemyConfig.SMIN + 1))), \
+						   				(- m_enemyConfig.SMIN + (rand() % static_cast<int>(m_enemyConfig.SMAX + m_enemyConfig.SMIN + 1))));
 
 	int				vert = m_enemyConfig.VMIN + (rand() % (m_enemyConfig.VMAX - m_enemyConfig.VMIN + 1));
 	sf::Color		fill {static_cast<sf::Uint8>(rand() % (256)), static_cast<sf::Uint8>(rand() % (256)), static_cast<sf::Uint8>(rand() % (256))};
@@ -507,15 +507,13 @@ void	Game::spawnSmallEnemys(std::shared_ptr<Entity> e)
 void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mousePos)
 {
 	auto 			bullet = m_entities.addEntity("bullet");
-	sf::Vector2f	diff {mousePos.x - entity->cTransform->pos.x, mousePos.y - entity->cTransform->pos.y};
-	
-	float			l {std::sqrt((diff.x * diff.x) + (diff.y * diff.y))};
-	diff.x = diff.x / l;
-	diff.y = diff.y / l;
-	
-	sf::Vector2f	bulletVelocity {m_bulletConfig.S * diff.x, m_bulletConfig.S * diff.y};
 
-	bullet->cTransform = std::make_shared<CTransform>((entity->cTransform->pos), bulletVelocity, entity->cTransform->angle);
+	float			angle = std::atan2(mousePos.y - entity->cTransform->pos.y, mousePos.x - entity->cTransform->pos.x);
+	sf::Vector2f	direction = sf::Vector2f(std::cos(angle), std::sin(angle));
+	sf::Vector2f	normalized = sf::Vector2f(((direction.x) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))), \
+											 ((direction.y) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))));
+
+	bullet->cTransform = std::make_shared<CTransform>((entity->cTransform->pos), normalized * m_bulletConfig.S, 0);
 	bullet->cLifespan = std::make_shared<CLifespan>(m_bulletConfig.L);
 	bullet->cCollision = std::make_shared<CCollision>(m_bulletConfig.CR);
 	bullet->cShape = std::make_shared<CShape>(m_bulletConfig.SR, m_bulletConfig.V, \
