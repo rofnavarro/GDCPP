@@ -478,10 +478,10 @@ void	Game::spawnSmallEnemys(std::shared_ptr<Entity> e)
 	float			smallCollRad {e->cCollision->raidus * 0.5f};
 
 
-	for (size_t i = 0; i < vert; ++i)
+	for (size_t i = 0; i < vert; i++)
 	{
 		auto			ent = m_entities.addEntity("smallenemy");
-		float			alpha {1};
+		float			alpha {0};
 		const double	pi {3.14159265359};
 		double			rad {0};
 
@@ -491,14 +491,13 @@ void	Game::spawnSmallEnemys(std::shared_ptr<Entity> e)
 		ent->cLifespan = std::make_shared<CLifespan>(m_enemyConfig.L);
 	
 		rad = (alpha * pi / 180.0);
-		sf::Vector2f	velo {static_cast<float>(std::cos(rad) * position.x + std::sin(rad) * position.y), \
-							  static_cast<float>(std::cos(rad) * position.x - std::sin(rad) * position.y)};
-		float			l {static_cast<float>((std::sqrt((velo.x * velo.x) + (velo.y * velo.y))))};
-		
-		velo.x = velo.x / l;
-		velo.y = velo.y / l;
 
-		ent->cTransform = std::make_shared<CTransform>(e->cTransform->pos, velo, 0);
+		sf::Vector2f	velo {static_cast<float>(std::cos(rad) * position.x + std::sin(rad) * position.y), \
+							  static_cast<float>(std::cos(rad) * position.x + std::sin(rad) * position.y)};
+		sf::Vector2f	normalized = sf::Vector2f(((velo.x) / std::sqrt((velo.x * velo.x) + (velo.y * velo.y))), \
+												 ((velo.y) / std::sqrt((velo.x * velo.x) + (velo.y * velo.y))));
+
+		ent->cTransform = std::make_shared<CTransform>(e->cTransform->pos, normalized, alpha);
 
 		alpha += 360 / vert;
 	}
@@ -508,7 +507,7 @@ void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mous
 {
 	auto 			bullet = m_entities.addEntity("bullet");
 
-	float			angle = std::atan2(mousePos.y - entity->cTransform->pos.y, mousePos.x - entity->cTransform->pos.x);
+	float			angle = std::atan2(-(mousePos.y - entity->cTransform->pos.y), mousePos.x - entity->cTransform->pos.x);
 	sf::Vector2f	direction = sf::Vector2f(std::cos(angle), std::sin(angle));
 	sf::Vector2f	normalized = sf::Vector2f(((direction.x) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))), \
 											 ((direction.y) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))));
