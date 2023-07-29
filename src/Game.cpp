@@ -507,7 +507,7 @@ void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mous
 {
 	auto 			bullet = m_entities.addEntity("bullet");
 
-	float			angle = std::atan2(-(mousePos.y - entity->cTransform->pos.y), mousePos.x - entity->cTransform->pos.x);
+	float			angle = std::atan2((mousePos.y - entity->cTransform->pos.y), (mousePos.x - entity->cTransform->pos.x));
 	sf::Vector2f	direction = sf::Vector2f(std::cos(angle), std::sin(angle));
 	sf::Vector2f	normalized = sf::Vector2f(((direction.x) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))), \
 											 ((direction.y) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))));
