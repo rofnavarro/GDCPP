@@ -523,5 +523,10 @@ void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mous
 
 void	Game::spawnSpecialWeapon(std::shared_ptr<Entity> entity)
 {
+	auto 			specialweapon = m_entities.addEntity("specialweapon");
 
+	specialweapon->cLifespan = std::make_shared<CLifespan>(3);
+	specialweapon->cShape = std::make_shared<CShape>(m_playerConfig.SR, m_playerConfig.V, \
+													sf::Color(m_playerConfig.FR, m_playerConfig.FG, m_playerConfig.FB), \
+													sf::Color(0, 255, 0), m_playerConfig.OT);
 }
