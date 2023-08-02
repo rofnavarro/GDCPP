@@ -529,4 +529,5 @@ void	Game::spawnSpecialWeapon(std::shared_ptr<Entity> entity)
 	specialweapon->cShape = std::make_shared<CShape>(m_playerConfig.SR, m_playerConfig.V, \
 													sf::Color(m_playerConfig.FR, m_playerConfig.FG, m_playerConfig.FB), \
 													sf::Color(0, 255, 0), m_playerConfig.OT);
+	specialweapon->cCollision = std::make_shared<CCollision>();
 }
