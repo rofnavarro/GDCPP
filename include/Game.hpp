@@ -87,6 +87,7 @@ private:
 
 public:
 	Game(const std::string& config);
+	~Game();
 
 	void	run();
 

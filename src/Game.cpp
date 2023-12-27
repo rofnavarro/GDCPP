@@ -5,6 +5,11 @@ Game::Game(const std::string& config)
 	init(config);	
 }
 
+Game::~Game(void)
+{
+	
+}
+
 void	Game::run()
 {
 
@@ -283,7 +288,7 @@ void	Game::sSpawner()
 		spawnEnemy();
 	if (m_player->cInput->leftMouse == true)
 	{
-		sf::Vector2f	mouseP = sf::Vector2f(((sf::Mouse::getPosition(m_window).x)), ((sf::Mouse::getPosition(m_window).x)));
+		sf::Vector2f	mouseP = sf::Vector2f(((sf::Mouse::getPosition(m_window).x)), ((sf::Mouse::getPosition(m_window).y)));
 		
 		spawnBullets(m_player, mouseP);
 		m_player->cInput->leftMouse = false;
@@ -507,8 +512,8 @@ void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mous
 {
 	auto 			bullet = m_entities.addEntity("bullet");
 
-	float			angle = std::atan2((mousePos.y - entity->cTransform->pos.y), (mousePos.x - entity->cTransform->pos.x));
-	sf::Vector2f	direction = sf::Vector2f(std::cos(angle), std::sin(angle));
+	float			angle = std::atan2(-(mousePos.y - entity->cTransform->pos.y), (mousePos.x - entity->cTransform->pos.x));
+	sf::Vector2f	direction = sf::Vector2f(std::cos(angle), -std::sin(angle));
 	sf::Vector2f	normalized = sf::Vector2f(((direction.x) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))), \
 											 ((direction.y) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))));
 
@@ -529,5 +534,5 @@ void	Game::spawnSpecialWeapon(std::shared_ptr<Entity> entity)
 	specialweapon->cShape = std::make_shared<CShape>(m_playerConfig.SR, m_playerConfig.V, \
 													sf::Color(m_playerConfig.FR, m_playerConfig.FG, m_playerConfig.FB), \
 													sf::Color(0, 255, 0), m_playerConfig.OT);
-	specialweapon->cCollision = std::make_shared<CCollision>();
+	// specialweapon->cCollision = std::make_shared<CCollision>();
 }
