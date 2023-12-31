@@ -3,7 +3,13 @@
 #ifndef GAME_HPP
 # define GAME_HPP
 
+# include	<memory>
+# include	<iostream>
+# include	<fstream>
+# include	<algorithm>
+# include	<cmath>
 # include	"engine.hpp"
+# include	"EntityManager.hpp"
 
 struct PlayerConfig
 {

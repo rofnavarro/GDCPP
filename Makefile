@@ -9,15 +9,15 @@ RM						=					rm -rf
 
 SRC_DIR					=					./src
 SRC_FILES				=					../main.cpp \
-														CCollision.cpp \
-														CInput.cpp \
-														CLifespan.cpp \
-														CScore.cpp \
-														CShape.cpp \
-														CTransform.cpp \
-														Entity.cpp \
-														EntityManager.cpp \
-														Game.cpp
+											CCollision.cpp \
+											CInput.cpp \
+											CLifespan.cpp \
+											CScore.cpp \
+											CShape.cpp \
+											CTransform.cpp \
+											Entity.cpp \
+											EntityManager.cpp \
+											Game.cpp
 
 SRC						=					$(addprefix $(SRC_DIR)/, $(SRC_FILES))
 

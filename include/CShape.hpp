@@ -3,7 +3,8 @@
 #ifndef CSHAPE_HPP
 # define CSHAPE_HPP
 
-# include	"engine.hpp"
+# include	<SFML/Window.hpp>
+# include	<SFML/Graphics.hpp>
 
 class	CShape
 {

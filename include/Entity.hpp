@@ -3,6 +3,8 @@
 #ifndef ENTITY_HPP
 # define ENTITY_HPP
 
+# include	<string>
+# include	<memory>
 # include	"engine.hpp"
 
 class	Entity

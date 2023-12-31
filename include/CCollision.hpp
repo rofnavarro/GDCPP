@@ -3,8 +3,6 @@
 #ifndef CCOLLISION_HPP
 # define CCOLLISION_HPP
 
-# include	"engine.hpp"
-
 class	CCollision
 {
 private:

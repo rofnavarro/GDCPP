@@ -3,7 +3,8 @@
 #ifndef CTRANSFORM_HPP
 # define CTRANSFORM_HPP
 
-# include	"engine.hpp"
+# include	<SFML/Window.hpp>
+# include	<SFML/Graphics.hpp>
 
 class	CTransform
 {

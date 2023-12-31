@@ -3,8 +3,6 @@
 #ifndef CLIFESPAN_HPP
 # define CLIFESPAN_HPP
 
-# include	"engine.hpp"
-
 class	CLifespan
 {
 private:

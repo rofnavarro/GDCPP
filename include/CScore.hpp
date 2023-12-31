@@ -3,8 +3,6 @@
 #ifndef CSCORE_HPP
 # define CSCORE_HPP
 
-# include	"engine.hpp"
-
 class	CScore
 {
 private:

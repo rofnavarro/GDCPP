@@ -1,9 +1,9 @@
 #include	"../include/EntityManager.hpp"
 
 EntityManager::EntityManager()
-	:m_totalEntities(0)
+:m_totalEntities(0)
 {
-
+	return ;
 }
 
 void	EntityManager::update()

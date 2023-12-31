@@ -1,4 +1,6 @@
-#include	"include/engine.hpp"
+#include	"./include/Entity.hpp"
+#include	"./include/EntityManager.hpp"
+#include	"./include/Game.hpp"
 
 int	main(void)
 {

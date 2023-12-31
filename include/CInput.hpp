@@ -3,7 +3,7 @@
 #ifndef CINPUT_HPP
 # define CINPUT_HPP
 
-# include	"engine.hpp"
+# include <string>
 
 class	CInput
 {
