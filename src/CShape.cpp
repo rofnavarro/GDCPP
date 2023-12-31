@@ -1,11 +1,17 @@
-#include	"../include/engine.hpp"
+#include	"../include/CShape.hpp"
 
 CShape::CShape(float radius, int points, const sf::Color& fill, \
 			const sf::Color& outline, float thickness)
-	:circle(radius, points)
+:_circle(radius, points)
 {
-	circle.setFillColor(fill);
-	circle.setOutlineColor(outline);
-	circle.setOutlineThickness(thickness);
-	circle.setOrigin(radius, radius);
+	_circle.setFillColor(fill);
+	_circle.setOutlineColor(outline);
+	_circle.setOutlineThickness(thickness);
+	_circle.setOrigin(radius, radius);
+	return ;
+}
+
+CShape::~CShape(void)
+{
+	return ;
 }

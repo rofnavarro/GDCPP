@@ -1,6 +1,9 @@
 #pragma	once
 
-#include	"engine.hpp"
+#ifndef GAME_HPP
+# define GAME_HPP
+
+# include	"engine.hpp"
 
 struct PlayerConfig
 {
@@ -92,3 +95,5 @@ public:
 	void	run();
 
 };
+
+#endif

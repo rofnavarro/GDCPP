@@ -1,4 +1,4 @@
-#include	"../include/engine.hpp"
+#include	"../include/Game.hpp"
 
 Game::Game(const std::string& config)
 {

@@ -1,6 +1,9 @@
 #pragma	once
 
-#include	"engine.hpp"
+#ifndef ENTITYMANAGER_HPP
+# define ENTITYMANAGER_HPP
+
+# include	"engine.hpp"
 
 typedef	std::vector	<std::shared_ptr<Entity>>	EntityVec;
 typedef	std::map	<std::string, EntityVec>	EntityMap;
@@ -23,3 +26,5 @@ public:
 	const EntityVec&			getEntities(const std::string& m_tag);
 
 };
+
+#endif

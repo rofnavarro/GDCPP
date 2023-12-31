@@ -7,19 +7,6 @@ LIB						=					-lsfml-graphics -lsfml-window -lsfml-system -lsfml-audio
 
 RM						=					rm -rf
 
-INCLUDE_DIR				=					./include
-INCLUDE_FILES			=					engine.hpp \
-											CCollision.hpp \
-											CInput.hpp \
-											CLifespan.hpp \
-											CScore.hpp \
-											CShape.hpp \
-											CTransform.hpp \
-											Entity.hpp \
-											EntityManager.hpp \
-											Game.hpp
-INCLUDE					=					$(addprefix $(INCLUDE_DIR)/, $(INCLUDE_FILES))
-
 SRC_DIR					=					./src
 SRC_FILES				=					../main.cpp \
 														CCollision.cpp \
@@ -45,7 +32,7 @@ $(OBJ_DIR)/%.o:			$(SRC_DIR)/%.cpp
 
 all:					$(NAME)
 
-$(NAME):				$(OBJ_DIR) $(OBJ) $(INCLUDE)
+$(NAME):				$(OBJ_DIR) $(OBJ)
 						$(CPP) $(CPP_FLAGS) $(OBJ) $(LIB) -o $(NAME)
 						@echo "$(GREEN)Executable OK!	$(RESET)"
 

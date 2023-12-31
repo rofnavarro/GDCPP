@@ -1,13 +1,25 @@
 #pragma	once
 
-#include	"engine.hpp"
+#ifndef CLIFESPAN_HPP
+# define CLIFESPAN_HPP
+
+# include	"engine.hpp"
 
 class	CLifespan
 {
-public:
-	int	remaining {0};
-	int	total {0};
+private:
+	int			_remaining {0};
+	int			_total {0};
 
-	CLifespan(int total);
+public:
+
+				CLifespan(int total);
+				~CLifespan(void);
+
+	const int	&getRemaining(void) const;
+	void		setRemaining(int remaining);
+	bool		live(void);
 
 };
+
+#endif

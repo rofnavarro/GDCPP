@@ -1,5 +1,7 @@
-#ifndef		ENGINE_HPP
-# define	ENGINE_HPP
+#pragma once
+
+#ifndef ENGINE_HPP
+# define ENGINE_HPP
 
 # include	<SFML/Window.hpp>
 # include	<SFML/Graphics.hpp>

@@ -1,12 +1,21 @@
 #pragma	once
 
-#include	"engine.hpp"
+#ifndef CCOLLISION_HPP
+# define CCOLLISION_HPP
+
+# include	"engine.hpp"
 
 class	CCollision
 {
-public:
-	float	raidus {0};
+private:
+	float		_raidus {0};
 
-	CCollision(float r);
+public:
+				CCollision(float r);
+				~CCollision(void);
+
+	const float	&getRadius(void) const;
 
 };
+
+#endif

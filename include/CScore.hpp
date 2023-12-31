@@ -1,12 +1,22 @@
 #pragma	once
 
-#include	"engine.hpp"
+#ifndef CSCORE_HPP
+# define CSCORE_HPP
+
+# include	"engine.hpp"
 
 class	CScore
 {
-public:
-	int	score {0};
+private:
+	int			_score {0};
 
-	CScore(int s);
+public:
+				CScore(int s);
+				~CScore(void);
+
+	const int	&getScore(void) const;
+	void		setScore(int score);
 
 };
+
+#endif

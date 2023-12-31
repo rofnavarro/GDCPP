@@ -1,4 +1,4 @@
-#include	"../include/engine.hpp"
+#include	"../include/EntityManager.hpp"
 
 EntityManager::EntityManager()
 	:m_totalEntities(0)

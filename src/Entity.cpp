@@ -1,29 +1,28 @@
-#include	"../include/engine.hpp"
+#include	"../include/Entity.hpp"
 
 Entity::Entity(size_t id, const std::string& tag)
-	:m_id(id)
-	,m_tag(tag)
-	,m_alive(true)
+:m_id(id) ,m_tag(tag) ,m_alive(true)
 {
-
+	return ;
 }
 
 bool	Entity::isActive() const
 {
-	return	(m_alive);
+	return	(this->m_alive);
 }
 
-const std::string&	Entity::getTag() const
+const std::string	&Entity::getTag() const
 {
-	return	(m_tag);
+	return	(this->m_tag);
 }
 
-size_t	Entity::getId() const
+const size_t	&Entity::getId() const
 {
-	return	(m_id);
+	return	(this->m_id);
 }
 
 void	Entity::destroy()
 {
-	m_alive = false;
+	this->m_alive = false;
+	return ;
 }

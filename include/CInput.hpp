@@ -1,17 +1,27 @@
 #pragma	once
 
-#include	"engine.hpp"
+#ifndef CINPUT_HPP
+# define CINPUT_HPP
+
+# include	"engine.hpp"
 
 class	CInput
 {
+private:
+	bool		_up {false};
+	bool		_left {false};
+	bool		_right {false};
+	bool		_down {false};
+	bool		_leftMouse {false};
+	bool		_rightMouse {false};
+
 public:
-	bool	up {false};
-	bool	left {false};
-	bool	right {false};
-	bool	down {false};
-	bool	leftMouse {false};
-	bool	rightMouse {false};
-	
-	CInput();
+				CInput(void);
+				~CInput(void);
+
+	const bool	&getInputStatus(std::string button) const;
+	void		changeInputStatus(std::string button);
 
 };
+
+#endif
