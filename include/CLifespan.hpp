@@ -10,13 +10,14 @@ private:
 	int			_total {0};
 
 public:
-
 				CLifespan(int total);
 				~CLifespan(void);
 
 	const int	&getRemaining(void) const;
+	const int	&getTotal(void) const;
 	void		setRemaining(int remaining);
-	bool		live(void);
+	void		setTotal(int total);
+	bool		isAlive(void);
 
 };
 

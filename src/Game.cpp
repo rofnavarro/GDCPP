@@ -1,149 +1,154 @@
 #include	"../include/Game.hpp"
 
-// #include	"../include/Game.hpp"
+Game::Game(const std::string &config)
+{
+	this->init(config);
+	return ;
+}
 
-// Game::Game(const std::string& config)
-// {
-// 	init(config);
-// 	return ;
-// }
-
-// Game::~Game(void)
-// {
-// 	return ;
-// }
+Game::~Game(void)
+{
+	return ;
+}
 
 // void	Game::run()
 // {
-// 	while (m_running)
+// 	while (this->m_running)
 // 	{
-// 		m_entities.update();
+//  		this->m_entities.update();
 
-// 		if (!m_paused)
+// 		if (!this->m_paused)
 // 		{
-// 			sLifespan();
-// 			sSpawner();
-// 			sMovement();
-// 			sCollision();
+// 			this->sLifespan();
+// 			this->sSpawner();
+// 			this->sMovement();
+// 			this->sCollision();
 // 		}
-// 		sUserInput();
-// 		sRender();
+// 		this->sUserInput();
+// 		this->sRender();
 
-// 		++m_currentFrame;
+// 		++this->m_currentFrame;
 // 	}
 // }
 
-// void	Game::init(const std::string& path)
-// {
-// 	srand(time(0));
+void	Game::init(const std::string &path)
+{
+	srand(time(0));
 
-// 	std::ifstream	file{path};
-// 	std::string		firstToken;
+	std::ifstream	file{path};
+	std::string		firstToken;
 
-// 	if (!file.is_open())
-// 	{
-// 		std::cout << "Fail to open file:" << path << std::endl;
-// 		exit (EXIT_FAILURE);
-// 	}
+	if (!file.is_open())
+	{
+		std::cerr << "Fail to open file:" << path << std::endl;
+		exit(EXIT_FAILURE);
+	}
 
-// 	while (file.is_open() && file >> firstToken)
-// 	{
-// 		if (firstToken == "Window")
-// 		{
-// 			int	w = 0;
-// 			int	h = 0;
-// 			int frame = 0;
-// 			int fullscreen = 0;
+	while (file.is_open() && file >> firstToken)
+	{
+		if (firstToken == "Window")
+		{
+			int	w = 0;
+			int	h = 0;
+			int frame = 0;
+			int fullscreen = 0;
 
-// 			file	>> w >> h >> frame >> fullscreen;
+			file >> w >> h >> frame >> fullscreen;
 
-// 			if (fullscreen == 0)
-// 			{
-// 				m_window.create(sf::VideoMode(w, h), "GAME ENGINE v0.2", sf::Style::Close);
-// 				m_window.setFramerateLimit(frame);
-// 			}
-// 			else if (fullscreen == 1)
-// 			{
-// 				auto fullscreenMode {sf::VideoMode::getFullscreenModes()};
+			if (fullscreen == 0)
+			{
+				this->m_window.create(sf::VideoMode(w, h), "GAME ENGINE v0.2", sf::Style::Close);
+				this->m_window.setFramerateLimit(frame);
+			}
+			else if (fullscreen == 1)
+			{
+				auto fullscreenMode {sf::VideoMode::getFullscreenModes()};
 
-// 				m_window.create(fullscreenMode[0], "GAME ENGINE v0.2", sf::Style::Close);
-// 				m_window.setFramerateLimit(frame);
-// 			}
-// 		}
-// 		else if (firstToken == "Font")
-// 		{
-// 			std::string				fontFile {};
-// 			sf::Vector3<sf::Uint16>	RGB{};
-// 			int						fontSize {};
+				this->m_window.create(fullscreenMode[0], "GAME ENGINE v0.2", sf::Style::Close);
+				this->m_window.setFramerateLimit(frame);
+			}
+		}
+		else if (firstToken == "Font")
+		{
+			int						fontSize {};
+			std::string				fontFile {};
+			sf::Vector3<sf::Uint16>	RGB{};
 
-// 			file	>> fontFile;
-// 			if (!m_font.loadFromFile(fontFile))
-// 			{
-// 				std::cerr << "Failed to load font. Filepath: " << fontFile << std::endl;
-// 			}
-// 			file	>> fontSize >> RGB.x >> RGB.y >> RGB.z;
-// 			m_text.setFont(m_font);
-// 			m_text.setCharacterSize(fontSize);
-// 			m_text.setFillColor(sf::Color(RGB.x, RGB.y, RGB.z));
-// 		}
-// 		else if (firstToken == "Player")
-// 		{
-// 			file	>> m_playerConfig.SR \
-// 					>> m_playerConfig.CR \
-// 					>> m_playerConfig.S \
-// 					>> m_playerConfig.FR \
-// 					>> m_playerConfig.FG \
-// 					>> m_playerConfig.FB \
-// 					>> m_playerConfig.OR \
-// 					>> m_playerConfig.OG \
-// 					>> m_playerConfig.OB \
-// 					>> m_playerConfig.OT \
-// 					>> m_playerConfig.V;
-// 		}
-// 		else if (firstToken == "Enemy")
-// 		{
-// 			file	>> m_enemyConfig.SR \
-// 					>> m_enemyConfig.CR \
-// 					>> m_enemyConfig.SMIN \
-// 					>> m_enemyConfig.SMAX \
-// 					>> m_enemyConfig.OR \
-// 					>> m_enemyConfig.OG \
-// 					>> m_enemyConfig.OB \
-// 					>> m_enemyConfig.OT \
-// 					>> m_enemyConfig.VMIN \
-// 					>> m_enemyConfig.VMAX \
-// 					>> m_enemyConfig.L \
-// 					>> m_enemyConfig.SI;
-// 		}
-// 		else if (firstToken == "Bullet")
-// 		{
-// 			file	>> m_bulletConfig.SR \
-// 					>> m_bulletConfig.CR \
-// 					>> m_bulletConfig.S \
-// 					>> m_bulletConfig.FR \
-// 					>> m_bulletConfig.FG \
-// 					>> m_bulletConfig.FB \
-// 					>> m_bulletConfig.OR \
-// 					>> m_bulletConfig.OG \
-// 					>> m_bulletConfig.OB \
-// 					>> m_bulletConfig.OT \
-// 					>> m_bulletConfig.V \
-// 					>> m_bulletConfig.L;
-// 		}
-// 	}
-// 	std::string		score {"Score: "};
+			file >> fontFile;
+			
+			if (!this->m_font.loadFromFile(fontFile))
+			{
+				std::cerr << "Failed to load font. Filepath: " << fontFile << std::endl;
+				exit(EXIT_FAILURE);
+			}
 
-// 	score.append(std::to_string(m_score));
-// 	m_text.setString(score);
-// 	m_text.setPosition(10.0f, 5.0f);
+			file >> fontSize >> RGB.x >> RGB.y >> RGB.z;
+
+			this->m_text.setFont(m_font);
+			this->m_text.setCharacterSize(fontSize);
+			this->m_text.setFillColor(sf::Color(RGB.x, RGB.y, RGB.z));
+		}
+		else if (firstToken == "Player")
+		{
+			file >> this->m_playerConfig.SR \
+				 >> this->m_playerConfig.CR \
+				 >> this->m_playerConfig.S \
+				 >> this->m_playerConfig.FR \
+				 >> this->m_playerConfig.FG \
+				 >> this->m_playerConfig.FB \
+				 >> this->m_playerConfig.OR \
+				 >> this->m_playerConfig.OG \
+				 >> this->m_playerConfig.OB \
+				 >> this->m_playerConfig.OT \
+				 >> this->m_playerConfig.V;
+		}
+		else if (firstToken == "Enemy")
+		{
+			file >> this->m_enemyConfig.SR \
+				 >> this->m_enemyConfig.CR \
+				 >> this->m_enemyConfig.SMIN \
+				 >> this->m_enemyConfig.SMAX \
+				 >> this->m_enemyConfig.OR \
+				 >> this->m_enemyConfig.OG \
+				 >> this->m_enemyConfig.OB \
+				 >> this->m_enemyConfig.OT \
+				 >> this->m_enemyConfig.VMIN \
+				 >> this->m_enemyConfig.VMAX \
+				 >> this->m_enemyConfig.L \
+				 >> this->m_enemyConfig.SI;
+		}
+		else if (firstToken == "Bullet")
+		{
+			file >> this->m_bulletConfig.SR \
+				 >> this->m_bulletConfig.CR \
+				 >> this->m_bulletConfig.S \
+				 >> this->m_bulletConfig.FR \
+				 >> this->m_bulletConfig.FG \
+				 >> this->m_bulletConfig.FB \
+				 >> this->m_bulletConfig.OR \
+				 >> this->m_bulletConfig.OG \
+				 >> this->m_bulletConfig.OB \
+				 >> this->m_bulletConfig.OT \
+				 >> this->m_bulletConfig.V \
+				 >> this->m_bulletConfig.L;
+		}
+	}
+
+	std::string		score {"Score: "};
+
+	score.append(std::to_string(this->m_score));
+	this->m_text.setString(score);
+	this->m_text.setPosition(10.0f, 5.0f);
 	
-// 	spawnPlayer();
-// }
+	this->spawnPlayer();
+	return ;
+}
 
-// void	Game::setPaused(bool paused)
-// {
-// 	m_paused = paused;
-// }
+void	Game::setPaused(bool paused)
+{
+	this->m_paused = paused;
+	return ;
+}
 
 // void	Game::sMovement()
 // {
@@ -247,30 +252,30 @@
 // 	}
 // }
 
-// void	Game::sLifespan()
-// {
-// 	for (auto e : m_entities.getEntities())
-// 	{
-// 		if (!e->cLifespan)
-// 			continue ;
-// 		if (e->cLifespan->remaining > 0)
-// 			--e->cLifespan->remaining;
-// 		if (e->isActive() && e->cLifespan->remaining > 0)
-// 		{
-// 			float	alpha_rand {static_cast<float>(e->cLifespan->remaining) / static_cast<float>(e->cLifespan->total)};
+void	Game::sLifespan()
+{
+	for (auto e : this->m_entities.getEntities())
+	{
+		if (!e->cLifespan)
+			continue ;
+		if (e->cLifespan.getRemaining() > 0)
+				e->cLifespan.setRemaining(e->cLifespan.getRemaining() - 1);
+		if (e->isActive() && e->cLifespan.getRemaining() > 0)
+		{
+			float	alpha_rand {static_cast<float>(e->cLifespan.getRemaining()) / static_cast<float>(e->cLifespan.getTotal())};
 
-// 			auto 	fill {e->cShape->circle.getFillColor()};
-// 			sf::Color newFill {fill.r, fill.g, fill.b, static_cast<sf::Uint8>(255 * alpha_rand)};
-// 			e->cShape->circle.setFillColor(newFill);
+			auto 	fill {e->cShape->circle.getFillColor()};
+			sf::Color newFill {fill.r, fill.g, fill.b, static_cast<sf::Uint8>(255 * alpha_rand)};
+			e->cShape->circle.setFillColor(newFill);
 
-// 			auto 	outline {e->cShape->circle.getFillColor()};
-// 			sf::Color newOutline {outline.r, outline.g, outline.b, static_cast<sf::Uint8>(255 * alpha_rand)};
-// 			e->cShape->circle.setFillColor(newOutline);
-// 		}
-// 		else if (e->cLifespan->remaining <= 0)
-// 			e->destroy();
-// 	}
-// }
+			auto 	outline {e->cShape->circle.getFillColor()};
+			sf::Color newOutline {outline.r, outline.g, outline.b, static_cast<sf::Uint8>(255 * alpha_rand)};
+			e->cShape->circle.setFillColor(newOutline);
+		}
+		else if (e->cLifespan->remaining <= 0)
+			e->destroy();
+	}
+}
 
 // void	Game::sRender()
 // {
@@ -286,19 +291,19 @@
 
 // void	Game::sSpawner()
 // {
-// 	if (m_currentFrame - m_lastEnemySpawnTime >= m_enemyConfig.SI)
-// 		spawnEnemy();
-// 	if (m_player->cInput->leftMouse == true)
+// 	if (this->m_currentFrame - this->m_lastEnemySpawnTime >= this->m_enemyConfig.SI)
+// 		this->spawnEnemy();
+// 	if (this->m_player->cInput.getInputStatus("leftMouse") == true)
 // 	{
-// 		sf::Vector2f	mouseP = sf::Vector2f(((sf::Mouse::getPosition(m_window).x)), ((sf::Mouse::getPosition(m_window).y)));
+// 		sf::Vector2f	mouseP = sf::Vector2f(((sf::Mouse::getPosition(this->m_window).x)), ((sf::Mouse::getPosition(this->m_window).y)));
 		
-// 		spawnBullets(m_player, mouseP);
-// 		m_player->cInput->leftMouse = false;
+// 		this->spawnBullets(this->m_player, mouseP);
+// 		this->m_player->cInput.changeInputStatus("leftMouse");
 // 	}
-// 	if (m_player->cInput->rightMouse == true)
+// 	if (this->m_player->cInput.getInputStatus("rightMouse") == true)
 // 	{
-// 		spawnSpecialWeapon(m_player);
-// 		m_player->cInput->rightMouse = false;
+// 		this->spawnSpecialWeapon(this->m_player);
+// 		this->m_player->cInput.changeInputStatus("rightMouse");
 // 	}
 // }
 
@@ -423,21 +428,24 @@
 // 	}
 // }
 
-// void	Game::spawnPlayer()
-// {
-// 	auto			entity = m_entities.addEntity("player");
-// 	sf::Vector2f	pos {(m_window.getSize().x * 0.5f), (m_window.getSize().y * 0.5f)};
+void	Game::spawnPlayer()
+{
+	auto			entity = this->m_entities.addEntity("player");
+	sf::Vector2f	pos {(this->m_window.getSize().x * 0.5f), (this->m_window.getSize().y * 0.5f)};
 
-// 	entity->cTransform = std::make_shared<CTransform>(pos, sf::Vector2f(0.0f, 0.0f), 0.0f);
-// 	entity->cShape = std::make_shared<CShape>(m_playerConfig.SR, m_playerConfig.V, \
-// 												sf::Color(m_playerConfig.FR, m_playerConfig.FG, m_playerConfig.FB), \
-// 												sf::Color(m_playerConfig.OR, m_playerConfig.OG, m_playerConfig.OB), \
-// 												m_playerConfig.OT);
-// 	entity->cInput = std::make_shared<CInput>();
-// 	entity->cCollision = std::make_shared<CCollision>(m_playerConfig.CR);
+	entity->cTransform = std::make_shared<CTransform>(pos, sf::Vector2f(0.0f, 0.0f), 0.0f);
+	entity->cShape = std::make_shared<CShape>(this->m_playerConfig.SR, this->m_playerConfig.V, \
+												sf::Color(this->m_playerConfig.FR, this->m_playerConfig.FG, \
+															this->m_playerConfig.FB), \
+												sf::Color(this->m_playerConfig.OR, this->m_playerConfig.OG, \
+															this->m_playerConfig.OB), \
+												this->m_playerConfig.OT);
+	entity->cInput = std::make_shared<CInput>();
+	entity->cCollision = std::make_shared<CCollision>(this->m_playerConfig.CR);
 
-// 	m_player = entity;
-// }
+	this->m_player = entity;
+	return ;
+}
 
 // void	Game::spawnEnemy()
 // {

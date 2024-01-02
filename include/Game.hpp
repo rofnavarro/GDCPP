@@ -76,29 +76,29 @@ private:
 
 	std::shared_ptr<Entity>		m_player;
 
-	void	init(const std::string& config);
-	void	setPaused(bool paused);
+	void						init(const std::string& config);
+	void						setPaused(bool paused);
 
-	void	sMovement();
-	void	sUserInput();
-	void	sLifespan();
-	void	sRender();
-	void	sSpawner();
-	void	sCollision();
+	void						sMovement();
+	void						sUserInput();
+	void						sLifespan();
+	void						sRender();
+	void						sSpawner();
+	void						sCollision();
 
-	void	spawnPlayer();
+	void						spawnPlayer();
 
-	void	spawnEnemy();
-	void	spawnSmallEnemys(std::shared_ptr<Entity> entity);
+	void						spawnEnemy();
+	void						spawnSmallEnemys(std::shared_ptr<Entity> entity);
 
-	void	spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mousePos);
-	void	spawnSpecialWeapon(std::shared_ptr<Entity> entity);
+	void						spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mousePos);
+	void						spawnSpecialWeapon(std::shared_ptr<Entity> entity);
 
 public:
-	Game(const std::string& config);
-	~Game();
+								Game(const std::string& config);
+								~Game();
 
-	void	run();
+	void						run();
 
 };
 

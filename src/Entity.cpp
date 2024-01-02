@@ -6,6 +6,11 @@ Entity::Entity(size_t id, const std::string& tag)
 	return ;
 }
 
+Entity::~Entity(void)
+{
+	return ;
+}
+
 bool	Entity::isActive() const
 {
 	return	(this->m_alive);

@@ -6,8 +6,9 @@ int	main(void)
 {
 	Game	*G = new Game("src/config.txt");
 	
-	G->run();
+	// G->run();
 
 	delete G;
-	return	(0);
+
+	return (0);
 }
