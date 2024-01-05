@@ -16,6 +16,8 @@ public:
 							const sf::Color& outline, float thickness);
 					~CShape(void);
 
+	sf::CircleShape	&getCircle(void);
+
 };
 
 #endif

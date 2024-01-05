@@ -18,6 +18,6 @@ const int	&CScore::getScore(void) const
 
 void	CScore::setScore(int score)
 {
-	this->_score = score;
+	this->_score += score;
 	return ;
 }

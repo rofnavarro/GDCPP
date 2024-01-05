@@ -11,25 +11,25 @@ Game::~Game(void)
 	return ;
 }
 
-// void	Game::run()
-// {
-// 	while (this->m_running)
-// 	{
-//  		this->m_entities.update();
+void	Game::run()
+{
+	while (this->m_running)
+	{
+ 		this->m_entities.update();
 
-// 		if (!this->m_paused)
-// 		{
-// 			this->sLifespan();
-// 			this->sSpawner();
-// 			this->sMovement();
-// 			this->sCollision();
-// 		}
-// 		this->sUserInput();
-// 		this->sRender();
+		if (!this->m_paused)
+		{
+			this->sLifespan();
+			this->sSpawner();
+			this->sMovement();
+			this->sCollision();
+		}
+		this->sUserInput();
+		this->sRender();
 
-// 		++this->m_currentFrame;
-// 	}
-// }
+		++this->m_currentFrame;
+	}
+}
 
 void	Game::init(const std::string &path)
 {
@@ -150,107 +150,100 @@ void	Game::setPaused(bool paused)
 	return ;
 }
 
-// void	Game::sMovement()
-// {
-// 	sf::Vector2f	playerVelocity;
+void	Game::sMovement()
+{
+	sf::Vector2f	playerVelocity;
 
-// 	if (m_player->cInput->up == true)
-// 		playerVelocity.y -= m_playerConfig.S;
-// 	if (m_player->cInput->left == true)
-// 		playerVelocity.x -= m_playerConfig.S;
-// 	if (m_player->cInput->down == true)
-// 		playerVelocity.y += m_playerConfig.S;
-// 	if (m_player->cInput->right == true)
-// 		playerVelocity.x += m_playerConfig.S;
-// 	for (auto e : m_entities.getEntities())
-// 	{
-// 		if (e->getTag() == "player")
-// 		{
-// 			m_player->cTransform->pos.x += playerVelocity.x;
-// 			m_player->cTransform->pos.y += playerVelocity.y;
-// 			e->cTransform->angle += 2.0f;
-// 			e->cShape->circle.setRotation(e->cTransform->angle);
+	if (this->m_player->cInput->getInputStatus("up") == true)
+		playerVelocity.y -= this->m_playerConfig.S;
+	if (this->m_player->cInput->getInputStatus("left") == true)
+		playerVelocity.x -= this->m_playerConfig.S;
+	if (this->m_player->cInput->getInputStatus("down") == true)
+		playerVelocity.y += this->m_playerConfig.S;
+	if (this->m_player->cInput->getInputStatus("right") == true)
+		playerVelocity.x += this->m_playerConfig.S;
+	for (auto e : this->m_entities.getEntities())
+	{
+		if (e->getTag() == "player")
+			this->m_player->cTransform->setPos(sf::Vector2f(playerVelocity.x, playerVelocity.y));
+		else if (e->cTransform)
+			e->cTransform->setPos(e->cTransform->getSpeed());
+		e->cTransform->setAngle(2.0f);
+		e->cShape->getCircle().setRotation(e->cTransform->getAngle());
+	}
+	return ;
+}
 
-// 		}
-// 		else if (e->cTransform)
-// 		{
-// 			e->cTransform->pos += e->cTransform->speed;
-// 			e->cTransform->angle += 2.0f;
-// 			e->cShape->circle.setRotation(e->cTransform->angle);
-// 		}
-// 	}
-// }
+void	Game::sUserInput()
+{
 
-// void	Game::sUserInput()
-// {
+	sf::Event	event;
 
-// 	sf::Event	event;
-
-// 	while (m_window.pollEvent(event))
-// 	{
-// 		switch (event.type)
-// 		{
-// 			case sf::Event::Closed:
-// 			{
-// 				m_running = false;
-// 				break ;
-// 			}
-// 			case sf::Event::KeyPressed:
-// 			{
-// 				if (event.key.code == sf::Keyboard::Escape)
-// 					m_running = false;
-// 				else if (event.key.code == sf::Keyboard::P)
-// 					m_paused ? setPaused(false) : setPaused(true);
-// 				else if (event.key.code == sf::Keyboard::W)
-// 					m_player->cInput->up = true;
-// 				else if (event.key.code == sf::Keyboard::A)
-// 					m_player->cInput->left = true;
-// 				else if (event.key.code == sf::Keyboard::S)
-// 					m_player->cInput->down = true;
-// 				else if (event.key.code == sf::Keyboard::D)
-// 					m_player->cInput->right = true;
-// 				break ;
-// 			}
-// 			case sf::Event::KeyReleased:
-// 			{
-// 				if (event.key.code == sf::Keyboard::W)
-// 					m_player->cInput->up = false;
-// 				else if (event.key.code == sf::Keyboard::A)
-// 					m_player->cInput->left = false;
-// 				else if (event.key.code == sf::Keyboard::S)
-// 					m_player->cInput->down = false;
-// 				else if (event.key.code == sf::Keyboard::D)
-// 					m_player->cInput->right = false;
-// 				break ;
-// 			}
-// 			case sf::Event::MouseButtonPressed:
-// 			{
-// 				if (event.mouseButton.button == sf::Mouse::Left)
-// 				{
-// 					if (m_player->cInput->leftMouse == false)
-// 						m_player->cInput->leftMouse = true;
-// 				}
-// 				if (event.mouseButton.button == sf::Mouse::Right)
-// 				{
-// 					if (m_player->cInput->rightMouse == false)
-// 						m_player->cInput->rightMouse = true;
-// 				}
-// 				break ;
-// 			}
-// 			case sf::Event::MouseButtonReleased:
-// 			{
-// 				if (event.mouseButton.button == sf::Mouse::Left)
-// 				{
-// 					if (m_player->cInput->leftMouse == false)
-// 						m_player->cInput->leftMouse = true;
-// 				}
-// 				break ;
-// 			}
-// 			default:
-// 				break ;
-// 		}
-// 	}
-// }
+	while (this->m_window.pollEvent(event))
+	{
+		switch (event.type)
+		{
+			case sf::Event::Closed:
+			{
+				this->m_running = false;
+				break ;
+			}
+			case sf::Event::KeyPressed:
+			{
+				if (event.key.code == sf::Keyboard::Escape)
+					this->m_running = false;
+				else if (event.key.code == sf::Keyboard::P)
+					this->m_paused ? this->setPaused(false) : this->setPaused(true);
+				else if (event.key.code == sf::Keyboard::W)
+					this->m_player->cInput->changeInputStatus("up");
+				else if (event.key.code == sf::Keyboard::A)
+					this->m_player->cInput->changeInputStatus("left");
+				else if (event.key.code == sf::Keyboard::S)
+					this->m_player->cInput->changeInputStatus("down");
+				else if (event.key.code == sf::Keyboard::D)
+					this->m_player->cInput->changeInputStatus("right");
+				break ;
+			}
+			case sf::Event::KeyReleased:
+			{
+				if (event.key.code == sf::Keyboard::W)
+					this->m_player->cInput->changeInputStatus("up");
+				else if (event.key.code == sf::Keyboard::A)
+					this->m_player->cInput->changeInputStatus("left");
+				else if (event.key.code == sf::Keyboard::S)
+					this->m_player->cInput->changeInputStatus("down");
+				else if (event.key.code == sf::Keyboard::D)
+					this->m_player->cInput->changeInputStatus("right");
+				break ;
+			}
+			case sf::Event::MouseButtonPressed:
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					if (this->m_player->cInput->getInputStatus("leftMouse") == false)
+						this->m_player->cInput->changeInputStatus("leftMouse");
+				}
+				if (event.mouseButton.button == sf::Mouse::Right)
+				{
+					if (this->m_player->cInput->getInputStatus("rightMouse") == false)
+						this->m_player->cInput->changeInputStatus("rightMouse");
+				}
+				break ;
+			}
+			case sf::Event::MouseButtonReleased:
+			{
+				if (event.mouseButton.button == sf::Mouse::Left)
+				{
+					if (this->m_player->cInput->getInputStatus("leftMouse") == false)
+						this->m_player->cInput->changeInputStatus("leftMouse");
+				}
+				break ;
+			}
+			default:
+				break ;
+		}
+	}
+}
 
 void	Game::sLifespan()
 {
@@ -258,175 +251,174 @@ void	Game::sLifespan()
 	{
 		if (!e->cLifespan)
 			continue ;
-		if (e->cLifespan.getRemaining() > 0)
-				e->cLifespan.setRemaining(e->cLifespan.getRemaining() - 1);
-		if (e->isActive() && e->cLifespan.getRemaining() > 0)
+		if (e->cLifespan->getRemaining() > 0)
+				e->cLifespan->setRemaining(e->cLifespan->getRemaining() - 1);
+		if (e->isActive() && e->cLifespan->getRemaining() > 0)
 		{
-			float	alpha_rand {static_cast<float>(e->cLifespan.getRemaining()) / static_cast<float>(e->cLifespan.getTotal())};
+			float	alpha_rand {static_cast<float>(e->cLifespan->getRemaining()) / static_cast<float>(e->cLifespan->getTotal())};
 
-			auto 	fill {e->cShape->circle.getFillColor()};
+			auto 	fill {e->cShape->getCircle().getFillColor()};
 			sf::Color newFill {fill.r, fill.g, fill.b, static_cast<sf::Uint8>(255 * alpha_rand)};
-			e->cShape->circle.setFillColor(newFill);
+			e->cShape->getCircle().setFillColor(newFill);
 
-			auto 	outline {e->cShape->circle.getFillColor()};
+			auto 	outline {e->cShape->getCircle().getFillColor()};
 			sf::Color newOutline {outline.r, outline.g, outline.b, static_cast<sf::Uint8>(255 * alpha_rand)};
-			e->cShape->circle.setFillColor(newOutline);
+			e->cShape->getCircle().setFillColor(newOutline);
 		}
-		else if (e->cLifespan->remaining <= 0)
+		else if (e->cLifespan->getRemaining() <= 0)
 			e->destroy();
 	}
+	return ;
 }
 
-// void	Game::sRender()
-// {
-// 	m_window.clear();
-// 	for (auto e : m_entities.getEntities())
-// 	{
-// 		e->cShape->circle.setPosition(e->cTransform->pos.x, e->cTransform->pos.y);
-// 		m_window.draw(e->cShape->circle);
-// 	}
-// 	m_window.draw(m_text);
-// 	m_window.display();
-// }
+void	Game::sRender()
+{
+	this->m_window.clear();
+	for (auto e : this->m_entities.getEntities())
+	{
+		e->cShape->getCircle().setPosition(e->cTransform->getPos());
+		this->m_window.draw(e->cShape->getCircle());
+	}
+	this->m_window.draw(m_text);
+	this->m_window.display();
+}
 
-// void	Game::sSpawner()
-// {
-// 	if (this->m_currentFrame - this->m_lastEnemySpawnTime >= this->m_enemyConfig.SI)
-// 		this->spawnEnemy();
-// 	if (this->m_player->cInput.getInputStatus("leftMouse") == true)
-// 	{
-// 		sf::Vector2f	mouseP = sf::Vector2f(((sf::Mouse::getPosition(this->m_window).x)), ((sf::Mouse::getPosition(this->m_window).y)));
+void	Game::sSpawner()
+{
+	if (this->m_currentFrame - this->m_lastEnemySpawnTime >= this->m_enemyConfig.SI)
+		this->spawnEnemy();
+	if (this->m_player->cInput->getInputStatus("leftMouse") == true)
+	{
+		sf::Vector2f	mouseP = sf::Vector2f(((sf::Mouse::getPosition(this->m_window).x)), ((sf::Mouse::getPosition(this->m_window).y)));
 		
-// 		this->spawnBullets(this->m_player, mouseP);
-// 		this->m_player->cInput.changeInputStatus("leftMouse");
-// 	}
-// 	if (this->m_player->cInput.getInputStatus("rightMouse") == true)
-// 	{
-// 		this->spawnSpecialWeapon(this->m_player);
-// 		this->m_player->cInput.changeInputStatus("rightMouse");
-// 	}
-// }
+		this->spawnBullets(this->m_player, mouseP);
+		this->m_player->cInput->changeInputStatus("leftMouse");
+	}
+	if (this->m_player->cInput->getInputStatus("rightMouse") == true)
+	{
+		this->spawnSpecialWeapon(this->m_player);
+		this->m_player->cInput->changeInputStatus("rightMouse");
+	}
+	return ;
+}
 
-// void	Game::sCollision()
-// {
-// 	for (auto player : m_entities.getEntities("player"))
-// 	{
-// 		for (auto enemy : m_entities.getEntities("enemy"))
-// 		{
-// 			sf::Vector2f	diff {enemy->cTransform->pos.x - player->cTransform->pos.x, \
-// 									enemy->cTransform->pos.y - player->cTransform->pos.y};
-// 			double			collision_rad {(player->cCollision->raidus + enemy->cCollision->raidus) * \
-// 										(player->cCollision->raidus + enemy->cCollision->raidus)};
-// 			double			dist {(diff.x * diff.x) + (diff.y * diff.y)};
+void	Game::sCollision()
+{
+	for (auto player : this->m_entities.getEntities("player"))
+	{
+		for (auto enemy : this->m_entities.getEntities("enemy"))
+		{
+			sf::Vector2f	diff {enemy->cTransform->getPos() - player->cTransform->getPos()};
+			double			collision_rad {(player->cCollision->getRadius() + enemy->cCollision->getRadius()) * \
+										(player->cCollision->getRadius() + enemy->cCollision->getRadius())};
+			double			dist {(diff.x * diff.x) + (diff.y * diff.y)};
 
-// 			if (dist < collision_rad)
-// 			{
-// 				if (player->isActive() == true)
-// 				{
-// 					std::string		score {"Score: "};
+			if (dist < collision_rad)
+			{
+				if (player->isActive() == true)
+				{
+					std::string		score {"Score: "};
 
-// 					score.append(std::to_string(0));
-// 					m_text.setString(score);
-// 					m_text.setPosition(10.0f, 5.0f);
+					score.append(std::to_string(0));
+					this->m_text.setString(score);
+					this->m_text.setPosition(10.0f, 5.0f);
 
-// 					enemy->destroy();
-// 					player->destroy();
+					enemy->destroy();
+					player->destroy();
 
-// 					spawnPlayer();
-// 				}
-// 			}
-// 		}
-// 		for (auto enemy : m_entities.getEntities("smallenemy"))
-// 		{
-// 			sf::Vector2f	diff {enemy->cTransform->pos.x - player->cTransform->pos.x, \
-// 									enemy->cTransform->pos.y - player->cTransform->pos.y};
-// 			double			collision_rad {(player->cCollision->raidus + enemy->cCollision->raidus) * \
-// 										(player->cCollision->raidus + enemy->cCollision->raidus)};
-// 			double			dist {(diff.x * diff.x) + (diff.y * diff.y)};
+					this->spawnPlayer();
+				}
+			}
+		}
+		for (auto enemy : this->m_entities.getEntities("smallenemy"))
+		{
+			sf::Vector2f	diff {enemy->cTransform->getPos() - player->cTransform->getPos()};
+			double			collision_rad {(player->cCollision->getRadius() + enemy->cCollision->getRadius()) * \
+										(player->cCollision->getRadius() + enemy->cCollision->getRadius())};
+			double			dist {(diff.x * diff.x) + (diff.y * diff.y)};
 
-// 			if (dist < collision_rad)
-// 			{
-// 				if (player->isActive() == true)
-// 				{
-// 					std::string		score {"Score: "};
+			if (dist < collision_rad)
+			{
+				if (player->isActive() == true)
+				{
+					std::string		score {"Score: "};
 
-// 					score.append(std::to_string(m_score / 2));
-// 					m_text.setString(score);
-// 					m_text.setPosition(10.0f, 5.0f);
+					score.append(std::to_string(m_score / 2));
+					this->m_text.setString(score);
+					this->m_text.setPosition(10.0f, 5.0f);
 
-// 					enemy->destroy();
-// 					player->destroy();
+					enemy->destroy();
+					player->destroy();
 
-// 					spawnPlayer();
-// 				}
-// 			}
-// 		}
-// 	}
-// 	for (auto bullet : m_entities.getEntities("bullet"))
-// 	{
-// 		for (auto enemy : m_entities.getEntities("enemy"))
-// 		{
-// 			sf::Vector2f	diff {enemy->cTransform->pos.x - bullet->cTransform->pos.x, \
-// 									enemy->cTransform->pos.y - bullet->cTransform->pos.y};
-// 			double			collision_rad {(bullet->cCollision->raidus + enemy->cCollision->raidus) * \
-// 										(bullet->cCollision->raidus + enemy->cCollision->raidus)};
-// 			double			dist {(diff.x * diff.x) + (diff.y * diff.y)};
+					this->spawnPlayer();
+				}
+			}
+		}
+	}
+	for (auto bullet : this->m_entities.getEntities("bullet"))
+	{
+		for (auto enemy : this->m_entities.getEntities("enemy"))
+		{
+			sf::Vector2f	diff {enemy->cTransform->getPos() - bullet->cTransform->getPos()};
+			double			collision_rad {(bullet->cCollision->getRadius() + enemy->cCollision->getRadius()) * \
+										(bullet->cCollision->getRadius() + enemy->cCollision->getRadius())};
+			double			dist {(diff.x * diff.x) + (diff.y * diff.y)};
 
-// 			if (dist < collision_rad)
-// 			{
-// 				std::string		score {"Score: "};
+			if (dist < collision_rad)
+			{
+				std::string		score {"Score: "};
 
-// 				m_score += enemy->cScore->score;
-// 				score.append(std::to_string(0));
-// 				m_text.setString(score);
-// 				m_text.setPosition(10.0f, 5.0f);
+				this->m_score = enemy->cScore->getScore();
+				score.append(std::to_string(0));
+				this->m_text.setString(score);
+				this->m_text.setPosition(10.0f, 5.0f);
 
-// 				spawnSmallEnemys(enemy);
-// 				enemy->destroy();
-// 				bullet->destroy();
+				this->spawnSmallEnemys(enemy);
+				enemy->destroy();
+				bullet->destroy();
 
-// 				break ;
-// 			}
-// 		}
-// 		for (auto enemy : m_entities.getEntities("smallenemy"))
-// 		{
-// 			sf::Vector2f	diff {enemy->cTransform->pos.x - bullet->cTransform->pos.x, \
-// 									enemy->cTransform->pos.y - bullet->cTransform->pos.y};
-// 			double			collision_rad {(bullet->cCollision->raidus + enemy->cCollision->raidus) * \
-// 										(bullet->cCollision->raidus + enemy->cCollision->raidus)};
-// 			double			dist {(diff.x * diff.x) + (diff.y * diff.y)};
+				break ;
+			}
+		}
+		for (auto enemy : this->m_entities.getEntities("smallenemy"))
+		{
+			sf::Vector2f	diff {enemy->cTransform->getPos() - bullet->cTransform->getPos()};
+			double			collision_rad {(bullet->cCollision->getRadius() + enemy->cCollision->getRadius()) * \
+										(bullet->cCollision->getRadius() + enemy->cCollision->getRadius())};
+			double			dist {(diff.x * diff.x) + (diff.y * diff.y)};
 
-// 			if (dist < collision_rad)
-// 			{
-// 				std::string		score {"Score: "};
+			if (dist < collision_rad)
+			{
+				std::string		score {"Score: "};
 
-// 				m_score += enemy->cScore->score;
-// 				score.append(std::to_string(m_score));
-// 				m_text.setString(score);
-// 				m_text.setPosition(10.0f, 5.0f);
+				this->m_score += enemy->cScore->getScore();
+				score.append(std::to_string(this->m_score));
+				this->m_text.setString(score);
+				this->m_text.setPosition(10.0f, 5.0f);
 
-// 				enemy->destroy();
-// 				bullet->destroy();
+				enemy->destroy();
+				bullet->destroy();
 
-// 				break ;
-// 			}
-// 		}
-// 	}
-// 	for (auto e : m_entities.getEntities())
-// 	{
-// 		if (e->getTag() == "bullet" || e->getTag() == "enemy" || e->getTag() == "smallenemy")
-// 		{
-// 			if (e->cTransform->pos.x + e->cCollision->raidus > m_window.getSize().x)
-// 				e->cTransform->speed.x *= -1;
-// 			else if (e->cTransform->pos.x - e->cCollision->raidus < 0)
-// 				e->cTransform->speed.x *= -1;
-// 			else if (e->cTransform->pos.y + e->cCollision->raidus > m_window.getSize().y)
-// 				e->cTransform->speed.y *= -1;
-// 			else if (e->cTransform->pos.y - e->cCollision->raidus < 0)
-// 				e->cTransform->speed.y *= -1;
-// 		}
-// 	}
-// }
+				break ;
+			}
+		}
+	}
+	for (auto e : this->m_entities.getEntities())
+	{
+		if (e->getTag() == "bullet" || e->getTag() == "enemy" || e->getTag() == "smallenemy")
+		{
+			if (e->cTransform->getPos().x + e->cCollision->getRadius() > m_window.getSize().x)
+				e->cTransform->setSpeed(sf::Vector2f(-1, 1));
+			else if (e->cTransform->getPos().x - e->cCollision->getRadius() < 0)
+				e->cTransform->setSpeed(sf::Vector2f(-1, 1));
+			else if (e->cTransform->getPos().y + e->cCollision->getRadius() > m_window.getSize().y)
+				e->cTransform->setSpeed(sf::Vector2f(1, -1));
+			else if (e->cTransform->getPos().y - e->cCollision->getRadius() < 0)
+				e->cTransform->setSpeed(sf::Vector2f(1, -1));
+		}
+	}
+	return ;
+}
 
 void	Game::spawnPlayer()
 {
@@ -447,7 +439,7 @@ void	Game::spawnPlayer()
 	return ;
 }
 
-// void	Game::spawnEnemy()
+void	Game::spawnEnemy(){}
 // {
 // 	auto			entity = m_entities.addEntity("enemy");
 
@@ -476,7 +468,7 @@ void	Game::spawnPlayer()
 // 	m_lastEnemySpawnTime = m_currentFrame;
 // }
 
-// void	Game::spawnSmallEnemys(std::shared_ptr<Entity> e)
+void	Game::spawnSmallEnemys(std::shared_ptr<Entity> e){}
 // {
 // 	size_t			vert {e->cShape->circle.getPointCount()};
 // 	sf::Vector2f	position {e->cTransform->pos.x, e->cTransform->pos.x};
@@ -518,7 +510,7 @@ void	Game::spawnPlayer()
 // 	}
 // }
 
-// void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mousePos)
+void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mousePos){}
 // {
 // 	auto 			bullet = m_entities.addEntity("bullet");
 
@@ -536,7 +528,7 @@ void	Game::spawnPlayer()
 // 											  m_bulletConfig.OT);
 // }
 
-// void	Game::spawnSpecialWeapon(std::shared_ptr<Entity> entity)
+void	Game::spawnSpecialWeapon(std::shared_ptr<Entity> entity){}
 // {
 // 	auto 			specialweapon = m_entities.addEntity("specialweapon");
 

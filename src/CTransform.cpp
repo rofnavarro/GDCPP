@@ -28,18 +28,19 @@ const float	&CTransform::getAngle(void) const
 
 void	CTransform::setPos(sf::Vector2f newPos)
 {
-	this->_pos = newPos;
+	this->_pos += newPos;
 	return ;
 }
 
 void	CTransform::setSpeed(sf::Vector2f newSpeed)
 {
-	this->_speed = newSpeed;
+	this->_speed.x *= newSpeed.x;
+	this->_speed.y *= newSpeed.y;
 	return ;
 }
 
 void	CTransform::setAngle(float newAngle)
 {
-	this->_angle = newAngle;
+	this->_angle += newAngle;
 	return ;
 }

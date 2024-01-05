@@ -15,3 +15,8 @@ CShape::~CShape(void)
 {
 	return ;
 }
+
+sf::CircleShape	&CShape::getCircle(void)
+{
+	return (this->_circle);
+}
