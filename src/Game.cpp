@@ -29,6 +29,9 @@ void	Game::run()
 
 		++this->m_currentFrame;
 	}
+	if (this->m_running == false)
+		this->m_window.close();
+	return ;
 }
 
 void	Game::init(const std::string &path)
@@ -154,13 +157,13 @@ void	Game::sMovement()
 {
 	sf::Vector2f	playerVelocity;
 
-	if (this->m_player->cInput->getInputStatus("up") == true)
+	if (this->m_player->cInput->up == true)
 		playerVelocity.y -= this->m_playerConfig.S;
-	if (this->m_player->cInput->getInputStatus("left") == true)
+	if (this->m_player->cInput->left == true)
 		playerVelocity.x -= this->m_playerConfig.S;
-	if (this->m_player->cInput->getInputStatus("down") == true)
+	if (this->m_player->cInput->down == true)
 		playerVelocity.y += this->m_playerConfig.S;
-	if (this->m_player->cInput->getInputStatus("right") == true)
+	if (this->m_player->cInput->right == true)
 		playerVelocity.x += this->m_playerConfig.S;
 	for (auto e : this->m_entities.getEntities())
 	{
@@ -195,38 +198,38 @@ void	Game::sUserInput()
 				else if (event.key.code == sf::Keyboard::P)
 					this->m_paused ? this->setPaused(false) : this->setPaused(true);
 				else if (event.key.code == sf::Keyboard::W)
-					this->m_player->cInput->changeInputStatus("up");
+					this->m_player->cInput->up = true;
 				else if (event.key.code == sf::Keyboard::A)
-					this->m_player->cInput->changeInputStatus("left");
+					this->m_player->cInput->left = true;
 				else if (event.key.code == sf::Keyboard::S)
-					this->m_player->cInput->changeInputStatus("down");
+					this->m_player->cInput->down = true;
 				else if (event.key.code == sf::Keyboard::D)
-					this->m_player->cInput->changeInputStatus("right");
+					this->m_player->cInput->right = true;
 				break ;
 			}
 			case sf::Event::KeyReleased:
 			{
 				if (event.key.code == sf::Keyboard::W)
-					this->m_player->cInput->changeInputStatus("up");
+					this->m_player->cInput->up = false;
 				else if (event.key.code == sf::Keyboard::A)
-					this->m_player->cInput->changeInputStatus("left");
+					this->m_player->cInput->left = false;
 				else if (event.key.code == sf::Keyboard::S)
-					this->m_player->cInput->changeInputStatus("down");
+					this->m_player->cInput->down = false;
 				else if (event.key.code == sf::Keyboard::D)
-					this->m_player->cInput->changeInputStatus("right");
+					this->m_player->cInput->right = false;
 				break ;
 			}
 			case sf::Event::MouseButtonPressed:
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
-					if (this->m_player->cInput->getInputStatus("leftMouse") == false)
-						this->m_player->cInput->changeInputStatus("leftMouse");
+					if (this->m_player->cInput->leftMouse == false)
+						this->m_player->cInput->leftMouse = true;
 				}
 				if (event.mouseButton.button == sf::Mouse::Right)
 				{
-					if (this->m_player->cInput->getInputStatus("rightMouse") == false)
-						this->m_player->cInput->changeInputStatus("rightMouse");
+					if (this->m_player->cInput->rightMouse == false)
+						this->m_player->cInput->rightMouse = true;
 				}
 				break ;
 			}
@@ -234,8 +237,8 @@ void	Game::sUserInput()
 			{
 				if (event.mouseButton.button == sf::Mouse::Left)
 				{
-					if (this->m_player->cInput->getInputStatus("leftMouse") == false)
-						this->m_player->cInput->changeInputStatus("leftMouse");
+					if (this->m_player->cInput->leftMouse == true)
+						this->m_player->cInput->leftMouse = false;
 				}
 				break ;
 			}
@@ -287,18 +290,14 @@ void	Game::sSpawner()
 {
 	if (this->m_currentFrame - this->m_lastEnemySpawnTime >= this->m_enemyConfig.SI)
 		this->spawnEnemy();
-	if (this->m_player->cInput->getInputStatus("leftMouse") == true)
+	if (this->m_player->cInput->leftMouse == true)
 	{
 		sf::Vector2f	mouseP = sf::Vector2f(((sf::Mouse::getPosition(this->m_window).x)), ((sf::Mouse::getPosition(this->m_window).y)));
 		
 		this->spawnBullets(this->m_player, mouseP);
-		this->m_player->cInput->changeInputStatus("leftMouse");
 	}
-	if (this->m_player->cInput->getInputStatus("rightMouse") == true)
-	{
+	if (this->m_player->cInput->rightMouse == true)
 		this->spawnSpecialWeapon(this->m_player);
-		this->m_player->cInput->changeInputStatus("rightMouse");
-	}
 	return ;
 }
 
