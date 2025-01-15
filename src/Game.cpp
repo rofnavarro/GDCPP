@@ -509,23 +509,23 @@ void	Game::spawnSmallEnemys(std::shared_ptr<Entity> e){}
 // 	}
 // }
 
-void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mousePos){}
-// {
-// 	auto 			bullet = m_entities.addEntity("bullet");
+void	Game::spawnBullets(std::shared_ptr<Entity> entity, const sf::Vector2f& mousePos)
+{
+	auto 			bullet = m_entities.addEntity("bullet");
 
-// 	float			angle = std::atan2(-(mousePos.y - entity->cTransform->pos.y), (mousePos.x - entity->cTransform->pos.x));
-// 	sf::Vector2f	direction = sf::Vector2f(std::cos(angle), -std::sin(angle));
-// 	sf::Vector2f	normalized = sf::Vector2f(((direction.x) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))), \
-// 											 ((direction.y) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))));
+	float			angle = std::atan2(-(mousePos.y - entity->cTransform->getPos().y), (mousePos.x - entity->cTransform->getPos().x));
+	sf::Vector2f	direction = sf::Vector2f(std::cos(angle), -std::sin(angle));
+	sf::Vector2f	normalized = sf::Vector2f(((direction.x) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))), \
+											 ((direction.y) / std::sqrt((direction.x * direction.x) + (direction.y * direction.y))));
 
-// 	bullet->cTransform = std::make_shared<CTransform>((entity->cTransform->pos), normalized * m_bulletConfig.S, 0);
-// 	bullet->cLifespan = std::make_shared<CLifespan>(m_bulletConfig.L);
-// 	bullet->cCollision = std::make_shared<CCollision>(m_bulletConfig.CR);
-// 	bullet->cShape = std::make_shared<CShape>(m_bulletConfig.SR, m_bulletConfig.V, \
-// 											  sf::Color(m_bulletConfig.FR, m_bulletConfig.FG, m_bulletConfig.FB), \
-// 											  sf::Color(m_bulletConfig.OR, m_bulletConfig.OG, m_bulletConfig.OB), \
-// 											  m_bulletConfig.OT);
-// }
+	bullet->cTransform = std::make_shared<CTransform>((entity->cTransform->getPos()), normalized * m_bulletConfig.S, 0);
+	bullet->cLifespan = std::make_shared<CLifespan>(m_bulletConfig.L);
+	bullet->cCollision = std::make_shared<CCollision>(m_bulletConfig.CR);
+	bullet->cShape = std::make_shared<CShape>(m_bulletConfig.SR, m_bulletConfig.V, \
+											  sf::Color(m_bulletConfig.FR, m_bulletConfig.FG, m_bulletConfig.FB), \
+											  sf::Color(m_bulletConfig.OR, m_bulletConfig.OG, m_bulletConfig.OB), \
+											  m_bulletConfig.OT);
+}
 
 void	Game::spawnSpecialWeapon(std::shared_ptr<Entity> entity){}
 // {
